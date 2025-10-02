@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path:  "/cart",
-        Component : Cart
+        Component : Cart,
       },{
         path : "/order/new",
         Component: CreateOrder,
