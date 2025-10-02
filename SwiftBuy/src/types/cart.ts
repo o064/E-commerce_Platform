@@ -13,7 +13,5 @@ export type cartItem = {
     selectedColor : string
 }
 export type Cart = {
-    items : cartItem[],
-    totalQuantity : number,
-    totalAmount : number,
+    items : cartItem[]
 }

@@ -3,11 +3,15 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import type { cartItem } from "../../types/cart";
 import Button from "../../ui/Button";
+import { useAppDispatch } from "../../hooks";
+import { decreaseItemQuantity, delItemFromCart, increaseItemQuantity } from "./cartSlice";
 type cartItemProp = {
   item : cartItem ;
 }
 function CartItem({ item } : cartItemProp) {
-  const { imgUrl , name : itemName, selectedSize : size, selectedColor : color, unitPrice  , totalPrice} = item;
+  const { imgUrl , name : itemName, selectedSize : size, selectedColor : color, unitPrice  , totalPrice , id , quantity} = item;
+  // disptacher
+  const dispatch = useAppDispatch();
   return (
     <TableRow>
       {/* Product */}
@@ -22,7 +26,7 @@ function CartItem({ item } : cartItemProp) {
             <Typography variant="subtitle1">{itemName}</Typography>
             <Typography variant="body2">Size: {size}</Typography>
             <Typography variant="body2">Color: {color}</Typography>
-            <Button >Remove</Button>
+            <Button onClick={()=> dispatch(delItemFromCart(id))}>Remove</Button>
           </div>
         </div>
       </TableCell>
@@ -33,13 +37,13 @@ function CartItem({ item } : cartItemProp) {
       {/* Quantity */}
       <TableCell>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton size="small">
-            <RemoveIcon />
+          <IconButton size="small" onClick={() => dispatch(decreaseItemQuantity(id))}>
+            <RemoveIcon  />
           </IconButton>
           <Typography variant="body1" style={{ margin: '0 8px' }}>
-            1
+            {quantity}
           </Typography>
-          <IconButton size="small">
+          <IconButton size="small" onClick={() => dispatch(increaseItemQuantity(id))}>
             <AddIcon />
           </IconButton>
         </div>

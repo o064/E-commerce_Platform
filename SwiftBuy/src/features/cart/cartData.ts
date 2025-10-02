@@ -1,8 +1,8 @@
 import type { Category, Size } from "../../types";
-import type { Cart, cartItem } from "../../types/cart";
+import type {  cartItem } from "../../types/cart";
 
 
-const fakeItems: cartItem[] = [
+export const fakeCart: cartItem[] = [
   {
     id: "c1",
     name: "Nike Air Max 270",
@@ -41,8 +41,3 @@ const fakeItems: cartItem[] = [
   },
 ];
 
-export const fakeCart: Cart = {
-  items: fakeItems,
-  totalQuantity: fakeItems.reduce((acc, item) => acc + item.quantity, 0),
-  totalAmount: fakeItems.reduce((acc, item) => acc + item.totalPrice, 0),
-};

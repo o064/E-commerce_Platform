@@ -1,11 +1,10 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { cartItem, Cart } from "../../types/cart";
+import type { RootState } from "../../store";
+import { fakeCart } from "./cartData";
 
 const initialState : Cart = {
-    items : [],
-    totalQuantity : 0,
-    totalAmount : 0,
-
+    items : fakeCart,
 }
 const cartSlice = createSlice({
     name : "cart",
@@ -14,17 +13,11 @@ const cartSlice = createSlice({
         addItemtoCart(state, action : PayloadAction<cartItem>){
             const newItem = action.payload;
             state.items.push(newItem);
-            state.totalQuantity += newItem.quantity;
-            state.totalAmount += newItem.totalPrice;
+
         },
         delItemFromCart(state, action : PayloadAction<string>){
             const id = action.payload;
-            state.items.filter(item => item.id !== id);
-            cartSlice.caseReducers.calcTotal(state);
-        },
-        calcTotal(state){
-            state.totalAmount = state.items.reduce((total, item) => total + item.totalPrice, 0);
-            state.totalQuantity = state.items.reduce((total, item) => total + item.quantity, 0);
+            state.items = state.items.filter(item => item.id !== id);
         }
         ,
         increaseItemQuantity(state, action : PayloadAction<string>){
@@ -33,7 +26,6 @@ const cartSlice = createSlice({
             if(item){
                 item.quantity++;
                 item.totalPrice = item.quantity * item.unitPrice;
-                cartSlice.caseReducers.calcTotal(state);
             }
         },
         decreaseItemQuantity(state, action :PayloadAction<string> ){
@@ -44,13 +36,10 @@ const cartSlice = createSlice({
                 item.totalPrice = item.quantity * item.unitPrice;
                 if(item.quantity === 0 )
                     cartSlice.caseReducers.delItemFromCart(state,action);
-                cartSlice.caseReducers.calcTotal(state);
             }
         },
         clearCart(state){
             state.items = [];
-            state.totalAmount = 0;
-            state.totalQuantity = 0;
         }
     }
 
@@ -62,8 +51,19 @@ export const {
   clearCart,
   decreaseItemQuantity,
   increaseItemQuantity,
-  calcTotal,
 } = cartSlice.actions;
 // export reducer
 const cartReducer = cartSlice.reducer;
 export default cartReducer;
+
+// selectors
+
+
+// get all cart items
+export const getCart  = (state :RootState) : cartItem[]=> state.cart.items;
+// calculate total quantity
+export const getTotalQuantity  = (state :RootState) : number =>
+    state.cart.items.reduce((acc: number,item  : cartItem) => acc + item.quantity,0);
+// calculate total amount
+export const getTotalAmount  = (state:RootState):number =>
+    state.cart.items.reduce((acc: number,item  : cartItem) => acc + item.totalPrice,0);

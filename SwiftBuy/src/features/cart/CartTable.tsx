@@ -8,12 +8,13 @@ import {
   Paper
 } from "@mui/material";
 import CartItem from "./CartItem";
-import { fakeCart } from "./cartData";
+import { useAppSelector } from "../../hooks";
+import { getCart } from "./cartSlice";
 
 
 export default function CartTable() {
   // fetch cart items from redux store
-  const cartItems = fakeCart;
+  const cartItems = useAppSelector(getCart) ;
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -28,7 +29,7 @@ export default function CartTable() {
         <TableBody>
           {
             // Map through cart items and render CartItem component for each
-            cartItems.items.map(item  => <CartItem item={item} key={item.id} />)
+            cartItems.map(item  => <CartItem item={item} key={item.id} />)
           }
         </TableBody>
       </Table>
