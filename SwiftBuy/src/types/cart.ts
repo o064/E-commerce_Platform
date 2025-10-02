@@ -4,7 +4,7 @@ export type cartItem = {
     id: string;
     name: string;
     category: Category | "unisex";
-    rand: string;  // for feltering later
+    brand: string;  // for feltering later
     imgUrl: string;
     quantity : number,
     unitPrice : number

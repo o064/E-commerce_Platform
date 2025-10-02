@@ -24,5 +24,4 @@ export type ProductListItem = {
 export type Product = ProductListItem & {
   description: string;
   inventory: InventoryItem[];
-
 };

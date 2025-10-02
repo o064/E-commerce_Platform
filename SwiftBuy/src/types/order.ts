@@ -1,21 +1,15 @@
 // Order-related types
+import type { Cart } from "./cart";
 
-import {  type Category, type Size } from "./product";
-
-export type OrderItem = {
-  productId: string;      // reference to Product.id
-  quantity: number;
-  selectedSize: Size;
-  category : Category ;
-  selectedColor?: string; // optional if color can vary
-};
-
-export type Order = {
-  id: string;
+export type OrderStatus = "pending"  | "delivered" | "cancelled";
+export type newOrder =  Cart & {
   userId: string;        // who placed the order
-  items: OrderItem[];
   totalPrice: number;
-  status: "pending"  | "delivered" | "cancelled";
+  totalQuantity : number ; 
+  status: OrderStatus;
+};
+export type Order = newOrder & {
+  orderId: string;
   createdAt: Date;
   updatedAt: Date;
 };
