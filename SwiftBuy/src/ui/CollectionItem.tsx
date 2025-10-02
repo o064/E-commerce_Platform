@@ -10,7 +10,7 @@ export function CollectionItem({  description , category}: collectionItemProps) 
     <li>
       <h2>{category} shoes collection</h2>
       <p>{description}</p>
-      <Button>
+      <Button to={category}>
         shop {category}
       </Button>
     </li>

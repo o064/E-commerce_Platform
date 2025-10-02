@@ -1,15 +1,16 @@
-import type { Product } from "../../types";
+import { Link } from "react-router";
+import type {  ProductListItem } from "../../types";
 
 type ProductItemProps = {
-  product: Product;
+  product: ProductListItem;
 };
 export function ProductItem({ product}: ProductItemProps) {
-  const {  name: productName, price: productPrice, imgUrl: imageUrl } = product;
+  const {  name: productName, price: productPrice, imgUrl: imageUrl , category } = product;
   return (
-    <li>
+    <Link to={`/${category}/${product.id}`}>
       <img src={imageUrl} alt={productName} width={150} />
       <div>{productName}</div>
       <div>{productPrice}</div>
-    </li>
+    </Link>
   );
 }

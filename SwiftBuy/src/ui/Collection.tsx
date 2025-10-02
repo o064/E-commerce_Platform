@@ -19,10 +19,12 @@ const collectionCategories = [
 ] as const;
 function Collection() {
   return (
+    <section>
     <ul>
       {collectionCategories.map(({ id, category, description }) => <CollectionItem category={category} description={description} key={id} />
       )}
     </ul>
+    </section>
   );
 }
 export default Collection

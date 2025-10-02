@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import type { Product } from '../../types';
+import type { Category, Product } from '../../types';
 import { formatCurrency } from '../../utils/helpers';
 import { products } from './productData';
 
-type ProductItemProps = {
-  product: Product | null;
+type ProductDetailProps = {
+  category : Category | 'featured';
 };
-
 const testProduct: Product = products[0];
 
-function ProductDetail({ product }: ProductItemProps) {
+function ProductDetail({category : productCategory }:ProductDetailProps) {
+  // fetch product from URL params or use a test product
+  
   // select product or fallback to test product
-  const currentProduct = product ?? testProduct;
+  const currentProduct =  testProduct;
   const { name, category, brand, imgUrl, price, description, inventory } = currentProduct;
   // unique colors
   const colors = Array.from(new Set(inventory.map((i) => i.color)));

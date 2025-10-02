@@ -8,6 +8,8 @@ import Order from "./features/order/Order";
 import CreateOrder from "./features/order/CreateOrder";
 import LogIn from "./features/authentication/login";
 import SignUp from "./features/authentication/SignUp";
+import ProductList from "./features/product/ProductList";
+import ProductDetail from "./features/product/ProductOverview";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,19 @@ const router = createBrowserRouter([
     children :[
       {index : true , Component : Home},
       {
+        path:  "/about",
+        Component : About
+      },
+      { path: "/men", element: <ProductList category="men" /> },
+      { path: "/men/:id", element: <ProductDetail category="men" /> },
+
+      { path: "/women", element: <ProductList category="women" /> },
+      { path: "/women/:id", element: <ProductDetail category="women" /> },
+
+      { path: "/kids", element: <ProductList category="kids" /> },
+      { path: "/kids/:id", element: <ProductDetail category="kids" /> },
+      
+            {
         path:  "/about",
         Component : About
       },
